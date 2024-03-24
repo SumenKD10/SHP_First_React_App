@@ -1,11 +1,24 @@
 function ExpenseItem(){
+    let date = '15 August 2023';
+    let title = 'Book';
+    let location = 'Delhi';
+    let price = '$10';
     return (
-      <div>
-        <p>Food - $5</p>
-        <p>Petrol - $20</p>
-        <p>Movie - $10</p>
-      </div>
+      <>
+        <div>
+          {date}
+        </div>
+        <div>
+          {title}
+        </div>
+        <div>
+          {price}
+        </div>
+        <div>
+          {location}
+        </div>
+      </>
     )
   }
   
-export default ExpenseItem;
+  export default ExpenseItem;
