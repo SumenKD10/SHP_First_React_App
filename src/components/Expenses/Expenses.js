@@ -1,5 +1,6 @@
-import ExpenseItem from "./ExpenseItem.js";
 import './Expenses.css';
+import ExpenseItem from "./ExpenseItem.js";
+import React from 'react';
 
 function Expenses() {
     const expenses = [
