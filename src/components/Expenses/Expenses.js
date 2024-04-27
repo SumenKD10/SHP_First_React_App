@@ -1,34 +1,47 @@
+// Write your code at relevant places in the code below:
+
 import React, { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
+import ExpensesFilter from "./ExpensesFilter";
 import "./Expenses.css";
 import Card from "../UI/Card";
-import ExpensesFilter from "./ExpensesFilter";
 
 const Expenses = (props) => {
-    const [filteredYear, setFilteredYear] = useState("2023");
+  const [filteredYear, setFilteredYear] = useState("2023");
 
-    const changeFilterHandler = (selectedYear) => {
-        setFilteredYear(selectedYear);
-    };
+  const changeFilterHandler = (selectedYear) => {
+    setFilteredYear(selectedYear);
+  };
 
-    return (
-        <Card className="expenses">
-            <ExpensesFilter
-                selected={filteredYear}
-                onChangeFilter={changeFilterHandler}
-            />
-            {props.expenses.filter((expense) => (expense.date.getFullYear() == filteredYear)).map((expense) => {
-                return (
-                    <ExpenseItem
-                        key={expense.id}
-                        title={expense.title}
-                        date={expense.date}
-                        price={expense.price}
-                    />
-                );
-            })}
-        </Card>
-    );
+  const filteredExpenses = props.expenses.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  });
+
+  let expensesContent = <p>No expenses found</p>;
+
+  if (filteredExpenses.length > 0) {
+    expensesContent = filteredExpenses.map((expense) => {
+      return (
+        <ExpenseItem
+          key={expense.id}
+          title={expense.title}
+          date={expense.date}
+          price={expense.price}
+        />
+      );
+    });
+  }
+
+  return (
+    <Card className="expenses">
+      <ExpensesFilter
+        selected={filteredYear}
+        onChangeFilter={changeFilterHandler}
+      />
+      {expensesContent}
+      {expensesContent.length === 1 && <p>Only one expense found. Please add more</p>}
+    </Card>
+  );
 };
 
 export default Expenses;
